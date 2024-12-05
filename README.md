@@ -76,6 +76,7 @@ Decision Tree:
 Naïve Bayes:
 * Average Accuracy: 94.02%
 * Average Recall: 89.32%
+  
 **6. Insights and Observations**
 1.  # Feature Importance:
 Features like radius_mean and area_mean were critical in distinguishing between benign and malignant cases.
