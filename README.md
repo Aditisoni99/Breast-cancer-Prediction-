@@ -6,11 +6,11 @@ This project aims to predict whether a breast tumor is malignant or benign using
 **The project explores every stage, including data preprocessing, feature selection, model training, evaluation, and insights into performance metrics.**
 
 # Dataset Description
-The dataset contains 569 records of breast tumor diagnostics with 32 features. Each record is labeled as:
+The dataset contains 569 records of breast tumor diagnostics with 33 features. Each record is labeled as:
 
-M (Malignant): Cancerous Tumors.
+M (Malignant): Cancerous Tumors that spread to other parts of the body
 
-B (Benign): Non-cancerous Tumors.
+B (Benign): Cancerous Tumors that are self-limiting and comparatively less harmful.
 
 Key Features:
 
@@ -37,7 +37,7 @@ B (Benign) → 0
 Continuous features (e.g., radius_mean, area_mean) were normalized using StandardScaler to ensure all features were on the same scale.
 
 **4.Exploratory Data Analysis**
-The dataset shows a class difference, with a greater number of benign cases than malignant ones.
+The dataset shows a class difference, with fewer malignant cases than benign cases.
 
 # Class Distribution:
 
@@ -48,7 +48,7 @@ Malignant (M): 212 cases
 **Observation:** The dataset has a class imbalance, with more benign cases than malignant ones.
 
 # Feature Significance:
-Box and scatter plots showed that variables such as radius_mean and area_mean indicate remarkable differentiation between benign and malignant scenarios.
+Box and scatter plots showed that radius_mean and area_mean indicate remarkable differentiation between benign and malignant scenarios.
 
 **Correlation Heatmap:**
 High correlation between radius_mean, perimeter_mean, and area_mean.
