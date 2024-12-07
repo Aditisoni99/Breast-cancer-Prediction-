@@ -23,22 +23,27 @@ Key Features:
 **smoothness_mean:** Smoothness of the tumor surface.
 
 # Data Preprocessing
-**1. Irrelevant Feature Removal:**
+
+**Irrelevant Feature Removal:**
+
 Columns id and Unnamed: 32 were removed as they were irrelevant for predictions.
 
-**2. Target Encoding:**
+**Target Encoding:**
+
 The target variable diagnosis was encoded as:
 
 M (Malignant) → 1
-
 B (Benign) → 0
 
-**3. Scaling:**
-Continuous features (e.g., radius_mean, area_mean) were normalized using StandardScaler to ensure all features were on the same scale.
+**Scaling:**
 
-**4.Exploratory Data Analysis**
-The dataset shows a class difference, with fewer malignant cases than benign cases.
+Continuous features (e.g., radius_mean, area_mean) were normalized using StandardScaler to ensure all features were on the same scale, preventing larger-valued features from dominating the model.
 
+**Exploratory Data Analysis:**
+
+Visualizations, such as boxplots and scatter plots, revealed distinct patterns between benign and malignant cases, confirming the importance of certain features.
+
+The dataset shows a class imbalance, with fewer malignant cases than benign ones, which could impact model performance.
 # Class Distribution:
 
 Benign (B): 357 cases
@@ -47,13 +52,92 @@ Malignant (M): 212 cases
 
 **Observation:** The dataset has a class imbalance, with more benign cases than malignant ones.
 
-# Feature Significance:
-Box and scatter plots showed that radius_mean and area_mean indicate remarkable differentiation between benign and malignant scenarios.
+# Exploratory Data Analysis (EDA): Key Feature Insights
+
+**Critical Features:**
+
+radius_mean, area_mean, and concavity_mean:
+
+These features demonstrate clear class separation between benign and malignant cases, making them highly influential for predictions.
+
+For example:
+
+area_mean: Malignant tumors typically have larger mean areas (~2500) compared to benign tumors (~1000), as shown in the bar plots.
+
+radius_mean: Malignant cases have significantly higher radius values compared to benign cases, with little overlap.
+
+concavity_mean: Malignant tumors exhibit higher concavity values, indicating more irregular growth patterns.
+
+**Impact on Models:**
+
+These features were prioritized during model training due to their strong correlation with the target variable (diagnosis).
+Moderate Contribution:
+
+texture_mean:
+
+While this feature shows overlap between benign and malignant cases, it still contributes valuable information when combined with other features.
+
+**Outliers:**
+
+Outliers are present in features like area_mean and concavity_mean, but they do not significantly disrupt the separation between classes.
+
+Outliers were retained to avoid data loss, as they represent real-world variations.
+
+**Visual Validation:**
+
+Boxplots and scatterplots confirmed the effectiveness of key features, such as:
+
+radius_mean and area_mean: Show significant separation, with little overlap between the two classes.
 
 **Correlation Heatmap:**
-High correlation between radius_mean, perimeter_mean, and area_mean.
 
-Redundant features were retained for model interpretability but flagged for potential optimization.
+Features like radius_mean, perimeter_mean, and area_mean were found to be highly correlated
+
+**Feature Correlation:**
+
+The correlation heatmap revealed clusters of highly correlated features (e.g., radius_mean and perimeter_mean), indicating redundancy.
+
+**Impact on Feature Selection:**
+
+Highly correlated features were retained in this project to maintain interpretability
+
+# Feature Relationships: Radius Mean vs. Area Mean
+
+**Strong Correlation:**
+
+radius_mean and area_mean have a clear linear relationship, making them effective for predicting tumor types.
+
+**Clustered Distribution:**
+
+Malignant tumors generally have larger values for both features, while benign tumors are smaller.
+
+Some data points **overlap**, which may lead to misclassification, suggesting room for improvement in the model.
+
+# Data Normalization
+
+Continuous features (e.g., radius_mean, texture_mean, area_mean) were normalized using StandardScaler to ensure all features are on the same scale.
+
+This step is essential for models sensitive to feature magnitudes, such as those relying on distances or gradient calculations.
+
+**Process:**
+
+The selected features were transformed to have a mean of 0 and a standard deviation of 1.
+
+This adjustment helps prevent features with larger scales from dominating the model training process.
+
+**Summary Statistics:**
+
+**Mean:** After normalization, the mean of each feature is close to 0, confirming the scaling was applied correctly.
+
+**Standard Deviation:** Features now have a standard deviation near 1, indicating consistent scaling.
+
+**Range:** The minimum and maximum values reflect the normalized range, making the data suitable for model input.
+
+# Train-Test Split
+
+Split the dataset into training and testing sets using an 80-20 ratio.
+
+Ensured reproducibility by setting random_state=42.
 
 # Machine Learning Models
 
@@ -76,6 +160,15 @@ Probabilistic model ( Statistical)  that outputs class probabilities.
 
 Weakness:
 Assumes independence between features, which may not always hold.
+
+# Predictions
+
+**Predictions were made on the test dataset using both models:**
+
+Decision Tree: y_pred_dt
+
+Naive Bayes: y_pred_nb
+
 
 # Model Evaluation
 
@@ -120,37 +213,50 @@ False Positives: 0
 True Negatives: 43
 
 # Cross-Validation:
-10-fold cross-validation was used for robust performance evaluation:
 
-Decision Tree:
+k-fold cross-validation was used for robust performance evaluation:
 
-* Average Accuracy: 93.33%
-  
-* Average Recall: 90.43%
-  
-Naïve Bayes:
+**Decision Tree:**
 
-* Average Accuracy: 94.02%
+Average Accuracy: 93.33%
+
+Average Precision: 91.26%
+
+Average Recall: 90.43%
+
+Average F1 Score: 90.54%
+
+**Note:** This approach reduces the risk of overfitting and ensures that the model is tested on all data points.
   
-* Average Recall: 89.32%
+**Naïve Bayes:**
+
+Average Accuracy: 94.02%
+
+Average Precision: 94.46%
+
+Average Recall: 89.32%
+
+Average F1 Score: 91.58%
   
 # 6. Insights and Observations
 
 **1.Feature Importance:**
 Features like radius_mean and area_mean were critical in distinguishing between benign and malignant cases.
 
-**2. Class Imbalance:**
-The dataset had more benign cases than malignant ones, which could bias the models.
+# Class Imbalance:
 
-So As the dataset is imbalance, so data augmentation technique (SMOTE) would be better in this scenario
+More benign cases than malignant ones, which could bias model predictions.
 
-**Benefits of SMOTE:**
-1. Unlike random oversampling (which duplicates data), SMOTE reduces the risk of overfitting by generating new, unique samples.
-2.  Balances the dataset, allowing the model to learn equally well from both classes.
+SMOTE (Synthetic Minority Oversampling Technique) was suggested to handle this issue:
+
+1) Creates unique synthetic samples for the minority class.
+   
+2) Balances the dataset to allow models to learn equally from both classes.
   
    **Decision Tree vs. Naïve Bayes:**
 
 Naïve Bayes had higher accuracy and fewer misclassifications overall.
+
 Decision Tree provided better interpretability and recall for malignant cases.
 
 # 7. Limitations
