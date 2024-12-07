@@ -226,8 +226,6 @@ Average Recall: 90.43%
 
 Average F1 Score: 90.54%
 
-**Note:** This approach reduces the risk of overfitting and ensures that the model is tested on all data points.
-  
 **Naïve Bayes:**
 
 Average Accuracy: 94.02%
@@ -237,6 +235,8 @@ Average Precision: 94.46%
 Average Recall: 89.32%
 
 Average F1 Score: 91.58%
+
+**Note:** This approach reduces the risk of overfitting and ensures that the model is tested on all data points.
   
 # 6. Insights and Observations
 
