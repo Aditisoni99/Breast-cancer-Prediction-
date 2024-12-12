@@ -1,6 +1,5 @@
-# Python-final-project
-This is a final project for python course
-# Overview of Breast Cancer Prediction Using Machine Learning Models:
+# Python-final-project # Breast Cancer Prediction using Wisconson Dataset 
+# Overview of Breast Cancer Prediction Using Machine Learning Models: Decision Tree and Naive Bayes
 This project aims to predict whether a breast tumor is malignant or benign using two machine learning models: Decision Tree and Naïve Bayes. The dataset contains diagnostic measurements of breast tumors, and the models are trained to classify tumors based on these measurements.
 
 **The project explores every stage, including data preprocessing, feature selection, model training, evaluation, and insights into performance metrics.**
@@ -214,7 +213,7 @@ True Negatives: 43
 
 # Cross-Validation:
 
-k-fold cross-validation was used for robust performance evaluation:
+10 k-fold cross-validation technique was used for robust performance evaluation:
 
 **Decision Tree:**
 
