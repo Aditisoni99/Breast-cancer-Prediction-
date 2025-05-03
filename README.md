@@ -1,4 +1,4 @@
-# Python-final-project # Breast Cancer Prediction using Wisconson Dataset 
+# Breast Cancer Prediction using Wisconsin Dataset 
 # Overview of Breast Cancer Prediction Using Machine Learning Models: Decision Tree and Naive Bayes
 This project aims to predict whether a breast tumor is malignant or benign using two machine learning models: Decision Tree and Naïve Bayes. The dataset contains diagnostic measurements of breast tumors, and the models are trained to classify tumors based on these measurements.
 
